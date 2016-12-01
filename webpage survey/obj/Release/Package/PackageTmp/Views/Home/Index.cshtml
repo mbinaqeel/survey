@@ -1,0 +1,1635 @@
+﻿@model webpage_survey.Models.Radio
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Personality Prediction | Survey</title>
+
+    <style>
+        .stork {
+            -webkit-text-stroke: 1px black;
+            color: white;
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        .fa-circle-o
+        {
+            margin:8px;
+        }
+         .qcontainer {
+            margin-left: 3%;
+            color: black;
+        }
+        .ques-grid {
+            font-size: 30px;
+            margin-top:80px;
+        }
+        .ans-grid {
+            width: 100%;
+            margin-left:2%;
+            font-weight:bold;
+        }
+        img{
+            width:200px;
+            height:200px;
+            border-radius:30%;
+        }
+        .img-grid {
+            float:right; margin-right:50px;
+        }
+        .heading {
+            margin-left: 3%;
+            font-size: 40px;
+            color: black;
+            font-family:'Cooper Lt BT'
+        }
+        .main-container {
+            margin-left: 3%;
+            font-size: 30px;
+            color: black;
+
+        }
+        .styled select {
+            background-color: white;
+            background:transparent;
+            width: 150px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            height: 34px;
+        }
+
+        .styled {
+            width: 120px;
+            height: 35px;
+            border: 1px solid #111;
+            border-radius: 3px;
+            overflow: hidden;
+            background: url(/Images/down-arrow.png) 96% / 20% no-repeat #ffffff;
+        }
+
+        .block {
+            position: relative;
+            display: inline-block;
+            padding: 1em 5em 1em 1em;
+            overflow: hidden;
+            color: #fff;
+            font-size:20px;
+        }
+
+            .block:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #7800ff;
+                -webkit-transform-origin: 100% 0;
+                -ms-transform-origin: 100% 0;
+                transform-origin: 100% 0;
+                -webkit-transform: skew(-45deg);
+                -ms-transform: skew(-45deg);
+                transform: skew(-45deg);
+                z-index: -1;
+            }
+        
+
+    </style>
+</head>
+<!--rgba(68, 67, 67, 0.80)  background-color: #b6ff00-->
+<body style="font-family: sans-serif; background-image: url(/Images/glitter-wallpaper_072436602_203.jpg);  background-attachment: fixed">
+    <div style="width: 80%; background-color: rgba(255, 255, 255, 0.4) ; margin: 10% auto; box-shadow: 0 4px 20px 4px #808080, 0 12px 20px 0 #808080; ">
+        <br />
+        
+        <h1 class="heading">Personality Test</h1>
+        
+        
+        @using (Html.BeginForm("Submit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {  
+            <div class="block">
+            This is a short form for finding out your personality. 
+            Students at <a href="http://www.pucit.edu.pk">PUCIT</a> are developing an AI based algorithm that will be able to predict a persons personality from his/her public tweets on Twitter. 
+            We want you to participate in our development process by filling this questionnaire. We will be thankful if you remain extremely honest during the questionnaire. We assure you that your identity will be kept hidden.
+            <br /><br />
+              Do you AGREE? &nbsp;
+                
+                <input type="checkbox" id="status" name="status" required="required" style="font-size: 30px; display:inline; -ms-transform: scale(2); /* IE */ -moz-transform: scale(2); /* FF */ -webkit-transform: scale(2); /* Safari and Chrome */ -o-transform: scale(2); /* Opera */ padding: 10px;" />
+                <br /><br />
+                For any suggestions or complaints, you can <a href="mailto:bitf13m006@pucit.edu.pk" target="_blank">contact us</a>
+                <br /><br />
+            </div>
+            
+            <div class="main-container">
+                <br />
+                Let's begin the questionnaire....<br /><br />
+                <!--this div will contain name, age, gender-->
+                Twitter ID:<br />
+                @Html.TextBoxFor(m => m.username, new { @style = "font-size: 20px; border-radius: 10px; text-align:center", @required = "required" })
+                <br /><br />
+                Name or Nickname:<br />
+                <input type="text" id="nickname" name="nickname" style="font-size: 20px; border-radius: 10px;" />
+
+                <br /><br />
+                Gender:
+                <br />
+                @Html.RadioButtonFor(m => m.gender, value: "Man", htmlAttributes: new { @style = "width:20px; height:20px;  margin:1%" })
+                Man
+                @Html.RadioButtonFor(m => m.gender, value: "Woman", htmlAttributes: new { @style = "width:20px; height:20px; margin:1%", @required = "required" })
+                Woman
+                <br /><br />
+                Age Group:
+                <div class="styled">
+                    <select required id="age" name="age">
+                        <option disabled selected>--Choose--</option>
+                        <option value="13 to 20">13 to 20</option>
+                        <option value="20 to 30">20 to 30</option>
+                        <option value="30 to 40">30 to 40</option>
+                        <option value="40 to 50">40 to 50</option>
+                        <option value="50 to 60">50 to 60</option>
+                        <option value="60+">60+</option>
+
+                    </select>
+                </div>
+                
+                <br />
+                Native City:
+                <br />
+                @Html.TextBoxFor(m => m.city, new { @style = "font-size: 20px; border-radius: 10px; margin-bottom:30px; text-align:center", @required = "required" })
+                
+            </div>
+            <div class="block">
+                Here are a number of characteristics that may or may not apply to you. For example, do you agree that you are someone who likes to spend time with others? Please choose a number for each statement to indicate the extent to which you agree or disagree with that statement.
+                <br />
+                <br />
+                
+                <h3>I see myself as someone who ...</h3>
+            </div>
+            <div class="qcontainer">
+                <!--this div contains all questions-->
+                
+                <div>
+                    <div class="ques-grid" style="margin-top:0px">
+                        1) ... is talkative
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+
+                        <img src="~/Images/1.1.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r1, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r1, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r1, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r1, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r1, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        2) ... Tends to find fault with others
+                    </div>
+                    <div class="img-grid">
+
+                        <img src="~/Images/349c637309774383ab57bcc3981b17d0.jpg" />
+                        <img src="~/Images/2.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r2, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r2, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r2, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r2, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r2, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        3) ... Does a thorough job
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/3.1.png" />
+                        <img src="~/Images/3.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r3, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o" , @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r3, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r3, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r3, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r3, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        4) ... is depressed, blue
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/4.1.jpg" />
+                        <img src="~/Images/4.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r4, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r4, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r4, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r4, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r4, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        5) ... is original, comes up with new ideas
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/5.1.jpg" />
+                        <img src="~/Images/5.jpg" />
+                    </div>
+
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r5, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o" , @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r5, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r5, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r5, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r5, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        6) ... is reserved
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/6.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r6, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r6, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r6, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r6, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r6, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        7) ... is helpful and unselfish with others
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/7.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r7, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r7, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r7, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r7, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r7, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        8) ... can be somewhat careless
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/8.1.jpg" />
+                        <img src="~/Images/8.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r8, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r8, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r8, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r8, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r8, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        9) ... is relaxed, handles stress well
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/9.1.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r9, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r9, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r9, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r9, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r9, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        10) ... is curious about many different things
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/10.1.jpg" />
+                        <img src="~/Images/10.png" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r10, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r10, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r10, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r10, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r10, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        11) ... is full of energy
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/11.jpg" />
+                        <img src="~/Images/11.1.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r11, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r11, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r11, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r11, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r11, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="ques-grid">
+                        12) ... starts quarrels with others
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/12.1.jpg" />
+                        <img src="~/Images/12.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r12, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r12, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r12, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r12, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r12, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        13) ... is a reliable worker
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/13.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r13, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r13, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r13, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r13, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r13, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        14) ... can be tense
+                    </div>
+                    <div class="img-grid">
+                        <img src="~/Images/14.jpg" />
+                        <!--images-->
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r14, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r14, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r14, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r14, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r14, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        15) ... is ingenious, a deep thinker
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/15.1.jpg" />
+                        <img src="~/Images/15.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r15, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r15, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r15, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r15, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r15, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        16) ... generates a lot of enthusiasm
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/16.1.jpg" />
+                        <img src="~/Images/16.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r16, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r16, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r16, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r16, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r16, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        17) ... has a forgiving nature
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/17.1.jpg" />
+                        <img src="~/Images/17.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r17, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r17, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r17, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r17, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r17, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        18) ... tends to be disorganized
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/18.1.jpg" />
+                        <img src="~/Images/18.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r18, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r18, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r18, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r18, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r18, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        19) ... worries a lot
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/19.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r19, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r19, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r19, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r19, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r19, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        20) ... has an active imagination
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/20.jpg" />
+                        <img src="~/Images/20.1.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r20, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r20, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r20, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r20, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r20, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        21) ... tends to be quiet
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/21.1.jpg" />
+                        <img src="~/Images/21.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r21, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r21, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r21, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r21, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r21, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        22) ... is generally trusting
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/22.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r22, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r22, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r22, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r22, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r22, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        23) ... tends to be lazy
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/23.1.jpg" />
+                        <img src="~/Images/23.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r23, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r23, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r23, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r23, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r23, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size:80px; font-family:Aharoni; text-align:center;" >
+                    <br />
+                    <i class="stork">Got tired?
+                    <br />
+                    <img src="~/Images/giphy.gif" style="width:60%; height:60%; border-radius:0px"/>
+                    <br />
+                    Take a little brake...</i>
+                </div>
+                
+                <!--dot tired-->
+                
+                <div>
+                    <div class="ques-grid">
+                        24) ... is emotionally stable, not easily upset
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/24.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r24, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r24, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r24, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r24, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r24, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        25) ... is inventive
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/25.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r25, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r25, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r25, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r25, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r25, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        26) ... has an assertive personality
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/26.png" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r26, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r26, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r26, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r26, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r26, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        27) ... can be cold and aloof
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/27.png" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r27, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r27, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r27, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r27, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r27, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        28) ... perseveres until the task is finished
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/28.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r28, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r28, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r28, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r28, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r28, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        29) ... can be moody
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/29.1.jpg" />
+                        <img src="~/Images/29.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r29, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r29, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r29, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r29, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r29, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        30) ... values artistic, aesthetic experiences
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/15.1.jpg" />
+                        <img src="~/Images/quote-art-is-a-person-s-private-vision-expressed-in-aesthetic-forms-chaim-potok-50-57-55.jpg" style="width:400px" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r30, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r30, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r30, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r30, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r30, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        31) ... is sometimes shy, inhibited
+                    </div>
+                    <div class="img-grid">
+                        <img src="~/Images/31.1.jpg" />
+                        <img src="~/Images/31.jpg" />
+                        <!--images-->
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r31, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r31, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r31, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r31, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r31, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        32) ... is considerate and kind to almost everyone
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/32.1.jpg" />
+                        <img src="~/Images/32.2.jpg" />
+                        <img src="~/Images/32.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r32, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r32, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r32, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r32, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r32, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        33) ... does things efficiently
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+
+                        <img src="~/Images/efficient-worker.jpg" style="width:250px" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r33, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r33, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r33, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r33, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r33, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        34) ... remains calm in tense situations
+                    </div>
+                    <div class="img-grid">
+                        <img src="~/Images/34.1.jpg" />
+                        <img src="~/Images/34.2.jpg" />
+                        <img src="~/Images/34.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r34, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r34, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r34, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r34, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r34, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        35) ... prefers work that is routine
+                    </div>
+                    <div class="img-grid">
+
+                        <img src="~/Images/6a01116888abb7970c01bb07f6a5cf970d-500wi.jpg" />
+                        <img src="~/Images/CALCULATOR.jpg" />
+                        <!--images-->
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r35, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r35, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r35, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r35, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r35, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        36) ... is outgoing, sociable
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/36.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r36, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r36, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r36, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r36, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r36, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        37) ... is sometimes rude to others
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/37.1.jpg" />
+                        <img src="~/Images/37.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r37, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r37, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r37, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r37, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r37, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        38) ... makes plans and follows through with them
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/38.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r38, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r38, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r38, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r38, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r38, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        39) ... gets nervous easily
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/39.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r39, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r39, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r39, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r39, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r39, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        40) ... likes to reflect, play with ideas
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+
+                        <img src="~/Images/CreativeBrain.jpg" />
+                        <img src="~/Images/40.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r40, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r40, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r40, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r40, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r40, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        41) ... has few artistic interests
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/41.1.jpg" />
+                        <img src="~/Images/41.2.png" />
+                        <img src="~/Images/41.png" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r41, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r41, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r41, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r41, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r41, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        42) ... likes to cooperate with others
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/42.1.jpg" />
+                        <img src="~/Images/42.png" />
+                        <img src="~/Images/42.2.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r42, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r42, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r42, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r42, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r42, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        43) ... is easily distracted
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/43.1.jpg" />
+                        <img src="~/Images/43.jpg" />
+
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r43, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r43, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r43, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r43, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r43, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ques-grid">
+                        44) ... is sophisticated in art, music, or literature
+                    </div>
+                    <div class="img-grid">
+                        <!--images-->
+                        <img src="~/Images/44.1.png" />
+                        <img src="~/Images/44.2.jpg" />
+                        <img src="~/Images/44.jpg" />
+                    </div>
+                    <div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r44, value: 1, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o", @required = "required" })
+                            Strongly Disagree
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r44, value: 2, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Disagree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r44, value: 3, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Neutral
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r44, value: 4, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Agree a little
+                        </div>
+                        <div class="ans-grid">
+                            @Html.RadioButtonFor(m => m.r44, value: 5, htmlAttributes: new { @style = "width:20px; height:20px; ", @class = "fa-circle-o"})
+                            Strongly Agree
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ques-grid">
+                    In the end, give us your best email so we may contact you, if required.
+                    <input type="text" id="email" name="email" placeholder="Email" style="font-size: 20px; border-radius: 10px;" required="required" />
+                </div>
+
+                <div>
+                    <div class="ques-grid" align="center">
+                        <input type="submit" style="font-size: 20px; border-radius: 20px; text-align:center" value="Submit" />
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        }
+    </div>
+    <footer id="footer" style="background-color:black; color:white; text-align:center; padding:10px">
+        This form was Generated Inside <a href="http://www.pucit.edu.pk">Punjab University College of Information Technology.</a>
+
+    </footer>
+</body>
+</html>

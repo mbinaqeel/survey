@@ -1,0 +1,100 @@
+﻿@model webpage_survey.Models.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawStuff);
+
+        function drawStuff() {
+            var data = new google.visualization.arrayToDataTable([
+              ['Big Five Traits', 'Percentage'],
+              ["Openness", @Model.Openness],
+              ["Consciousness", @Model.Conscientiousness],
+              ["Extroversion", @Model.Extroversion],
+              ["Agreeableness", @Model.Agreeableness],
+              ['Neutrocism', @Model.Neuroticism]
+            ]);
+
+            var options = {
+                title: 'Personality Scores',
+                width: 900,
+                legend: { position: 'none' },
+                chart: {
+                    title: 'Personality Scores',
+                    subtitle: 'popularity by percentage'
+                },
+                bars: 'horizontal', // Required for Material Bar Charts.
+                axes: {
+                    x: {
+                        0: { side: 'top', label: 'Percentage' } // Top x-axis.
+                    }
+                },
+                bar: { groupWidth: "90%" }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+            chart.draw(data, options);
+        };
+
+    </script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Survey</title>
+
+    <style>
+        .qcontainer {
+            margin-left: 3%;
+            color: white;
+        }
+
+        .ques-grid {
+            font-size: 30px;
+            margin-top: 80px;
+        }
+
+        .ans-grid {
+            width: 20%;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .img-grid {
+            float: right;
+            margin-right: 50px;
+        }
+    </style>
+</head>
+<body style="font-family:sans-serif; background-image: url(/Images/glitter-wallpaper_072436602_203.jpg); background-attachment: fixed">
+    <div style="width: 80%;  background-color: rgba(68, 67, 67, 0.80); margin: 10% auto; box-shadow: 0 4px 20px 4px #808080, 0 12px 20px 0 #808080; ">
+        <br />
+        <div style="font-family: sans-serif; margin-left:3%; color:white">
+            <h2><i> Thank you For your feedback</i></h2>
+            <div id="top_x_div" align="center" style="width: 900px; height: 500px; margin-left:3%"></div>
+            <br />
+            <br />
+            <h3>Openness : @Model.Openness</h3>
+            <h3>Agreeableness: @Model.Agreeableness</h3>
+            <h3>Concientiousness : @Model.Conscientiousness</h3>
+            <h3>Extroversion : @Model.Extroversion</h3>
+            <h3>Neuroticism : @Model.Neuroticism</h3>
+            
+            <br />
+            <br />
+        </div>
+     </div>
+</body>
+</html>
+
+
+
+

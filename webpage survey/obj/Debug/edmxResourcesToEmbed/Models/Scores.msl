@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TraitsModelStoreContainer" CdmEntityContainer="TraitsEntities">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TraitsModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="nickname" ColumnName="nickname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="timedate" ColumnName="timedate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Extroversion" ColumnName="Extroversion" />
+          <ScalarProperty Name="Agreeableness" ColumnName="Agreeableness" />
+          <ScalarProperty Name="Conscientiousness" ColumnName="Conscientiousness" />
+          <ScalarProperty Name="Neuroticism" ColumnName="Neuroticism" />
+          <ScalarProperty Name="Openness" ColumnName="Openness" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
